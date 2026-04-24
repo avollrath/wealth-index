@@ -142,6 +142,11 @@ select {
   text-transform: uppercase;
 }
 
+.hero-eyebrow {
+  display: block;
+  margin-bottom: clamp(1.8rem, 4vw, 3.25rem);
+}
+
 .hero h1,
 .detail-title,
 .method-title {
@@ -156,6 +161,8 @@ select {
 .hero h1 {
   max-width: 9ch;
   font-size: clamp(4.2rem, 12vw, 9.5rem);
+  letter-spacing: -8px;
+  line-height: 0.8;
 }
 
 .accent {
@@ -261,7 +268,7 @@ select {
   min-height: 8.75rem;
   border-bottom: 1px solid var(--line);
   text-decoration: none;
-  padding-block: 1.15rem;
+  padding: 1.15rem clamp(1rem, 2.5vw, 2rem);
 }
 
 .person-card.is-filtered-out {
@@ -394,8 +401,13 @@ select {
 .detail-title {
   position: relative;
   z-index: 1;
-  max-width: 11ch;
-  font-size: clamp(4rem, 13vw, 11rem);
+  max-width: min(100%, 14ch);
+  font-size: clamp(3rem, 9.5vw, 8.5rem);
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+  overflow-wrap: normal;
+  text-wrap: balance;
+  hyphens: none;
 }
 
 .detail-content,
@@ -427,7 +439,7 @@ select {
   display: grid;
   gap: 0.35rem;
   background: var(--surface);
-  padding: 1rem 0;
+  padding: 1rem clamp(1rem, 2.5vw, 2rem);
 }
 
 .fact strong {

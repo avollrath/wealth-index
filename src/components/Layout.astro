@@ -7,10 +7,10 @@ type Props = {
 };
 
 const {
-  title = "Promi Vermögen Archiv",
+  title = "PROMI-VERMÖGENS-INDEX",
   description = "Eine kuratierte Sammlung bekannter Persönlichkeiten und grober Vermögensschätzungen.",
 } = Astro.props;
-const pageTitle = title === "Promi Vermögen Archiv" ? title : `${title} | Promi Vermögen Archiv`;
+const pageTitle = title === "PROMI-VERMÖGENS-INDEX" ? title : `${title} | PROMI-VERMÖGENS-INDEX`;
 const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 ---
 
@@ -34,10 +34,9 @@ const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL :
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href={base}>PROMI VERMÖGEN ARCHIV</a>
+      <a class="brand" href={base}>PROMI-VERMÖGENS-INDEX</a>
       <nav class="nav" aria-label="Hauptnavigation">
         <a href={base}>Index</a>
-        <a href={`${base}top-200/`}>Top 200</a>
         <a href={`${base}methodik/`}>Methodik</a>
       </nav>
     </header>
@@ -46,7 +45,7 @@ const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL :
     </main>
     <footer class="footer">
       <div class="site-shell">
-        Wealth Index. Alle Vermögensangaben sind grobe Schätzungen und keine verifizierten Finanzdaten.
+        PROMI-VERMÖGENS-INDEX. Alle Vermögensangaben sind grobe Schätzungen und keine verifizierten Finanzdaten.
       </div>
     </footer>
   </body>
