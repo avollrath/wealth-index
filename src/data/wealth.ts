@@ -9,6 +9,7 @@ export type Person = {
   estimatedNetWorthEur?: string;
   estimateConfidence?: string;
   shortBio?: string;
+  longBio?: string;
   wealthSource?: string;
   websiteUsageNote?: string;
 };
@@ -99,9 +100,12 @@ export function getLongBio(person: Person) {
   const shortBio =
     person.shortBio ||
     `${name} ist eine bekannte Person aus dem Bereich ${category}.`;
+  const bioIntro =
+    person.longBio ||
+    `${shortBio} Auf dieser Seite läuft ${name} unter ${category}; der Bezug ist ${country}.`;
 
   return [
-    `${shortBio} Auf dieser Seite läuft ${name} unter ${category}; der Bezug ist ${country}.`,
+    bioIntro,
     `Die Vermögensangabe lautet ${estimate}. Das ist ein grober öffentlicher Schätzwert, kein bestätigter Kontostand und keine Bilanz. Der tatsächliche Wert kann also deutlich höher oder niedriger liegen.`,
     `Als mögliche Vermögensquellen werden vor allem ${source} genannt. Wie sicher die Schätzung ist, wird hier als ${confidence} angegeben. Das Profil soll Orientierung geben, aber keine belastbare Finanzinformation sein.`,
   ];
