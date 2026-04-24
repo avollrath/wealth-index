@@ -23,7 +23,7 @@ const categoryGroup = getCategoryGroup(person.category);
 >
   <span class="rank-mark">{formatRank(person.rank)}</span>
   <div class="row-main">
-    <p class="category-line">{categoryGroup} / {person.category || "Kategorie offen"}</p>
+    <p class="category-line">{categoryGroup || "Kategorie offen"}</p>
     <h2>{person.name}</h2>
     <p class="bio">{person.shortBio || "Für diese Person liegt aktuell keine Kurzbeschreibung vor."}</p>
   </div>

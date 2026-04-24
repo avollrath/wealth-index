@@ -86,3 +86,23 @@ export function getRelatedPeople(current: Person, limit = 4) {
 export function estimateLabel(value?: string) {
   return value || "Keine öffentliche Schätzung";
 }
+
+export function getLongBio(person: Person) {
+  const name = person.name || "Diese Person";
+  const category = person.category || "Unterhaltung";
+  const country = person.countryConnection || "Deutschland";
+  const estimate = estimateLabel(person.estimatedNetWorthEur);
+  const confidence = person.estimateConfidence || "nicht genauer eingeordnet";
+  const source =
+    person.wealthSource ||
+    "öffentliche Auftritte, Medienpräsenz und weitere geschäftliche Aktivitäten";
+  const shortBio =
+    person.shortBio ||
+    `${name} ist eine bekannte Person aus dem Bereich ${category}.`;
+
+  return [
+    `${shortBio} Auf dieser Seite läuft ${name} unter ${category}; der Bezug ist ${country}.`,
+    `Die Vermögensangabe lautet ${estimate}. Das ist ein grober öffentlicher Schätzwert, kein bestätigter Kontostand und keine Bilanz. Der tatsächliche Wert kann also deutlich höher oder niedriger liegen.`,
+    `Als mögliche Vermögensquellen werden vor allem ${source} genannt. Wie sicher die Schätzung ist, wird hier als ${confidence} angegeben. Das Profil soll Orientierung geben, aber keine belastbare Finanzinformation sein.`,
+  ];
+}

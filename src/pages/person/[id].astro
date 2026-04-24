@@ -1,7 +1,7 @@
 ---
 import Layout from "../../components/Layout.astro";
 import PersonCard from "../../components/PersonCard.astro";
-import { estimateLabel, formatRank, getRelatedPeople, people } from "../../data/wealth";
+import { estimateLabel, formatRank, getLongBio, getRelatedPeople, people } from "../../data/wealth";
 
 export function getStaticPaths() {
   return people.map((person) => ({
@@ -12,12 +12,13 @@ export function getStaticPaths() {
 
 const { person } = Astro.props;
 const related = getRelatedPeople(person);
+const longBio = getLongBio(person);
 const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 ---
 
 <Layout
   title={person.name}
-  description={`${person.name}: geschätztes Vermögen, Kategorie und Kurzprofil im Promi Vermögen Archiv.`}
+  description={`${person.name}: Vermögensschätzung, Kurzprofil und Einordnung im Promi Vermögen Archiv.`}
 >
   <section class="site-shell">
     <div class="detail-hero">
@@ -37,7 +38,7 @@ const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL :
         <strong>{person.category || "Nicht angegeben"}</strong>
       </div>
       <div class="fact">
-        <span class="label">Länderbezug</span>
+        <span class="label">Bezug</span>
         <strong>{person.countryConnection || "Nicht angegeben"}</strong>
       </div>
       <div class="fact">
@@ -45,21 +46,22 @@ const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL :
         <strong>{estimateLabel(person.estimatedNetWorthEur)}</strong>
       </div>
       <div class="fact">
-        <span class="label">Schätzsicherheit</span>
+        <span class="label">Sicherheit der Schätzung</span>
         <strong>{person.estimateConfidence || "Nicht angegeben"}</strong>
       </div>
     </aside>
 
     <article class="prose">
       <p class="eyebrow">Profil</p>
-      <h2>Wirtschaftliche Reichweite als öffentlicher Schätzbereich.</h2>
-      <p>{person.shortBio || "Für diese Person liegt aktuell keine Kurzbeschreibung vor."}</p>
+      <h2>Wer ist {person.name}?</h2>
+      {longBio.map((paragraph) => <p>{paragraph}</p>)}
       <p>
-        <strong>Quelle des Vermögens:</strong>
+        <strong>Mögliche Vermögensquellen:</strong>
         {person.wealthSource || "Keine vereinfachte Quelle angegeben."}
       </p>
       <p class="note">
-        {person.websiteUsageNote || "Als Schätzung anzeigen, nicht als exakte Finanzangabe."}
+        Die Angaben sind nur eine grobe öffentliche Schätzung. Sie sind nicht geprüft und können deutlich von den
+        tatsächlichen Vermögensverhältnissen abweichen.
       </p>
     </article>
   </section>

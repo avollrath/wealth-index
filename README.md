@@ -1,6 +1,6 @@
 # Promi Vermögen Archiv / Wealth Index
 
-Eine deutsche, typografiebetonte Website für ein redaktionelles Archiv bekannter Persönlichkeiten und ihrer grob geschätzten wirtschaftlichen Reichweite. Das Projekt nutzt die bereitgestellte `top200.json` direkt und erzeugt daraus eine durchsuchbare Übersicht sowie Detailseiten für alle Profile.
+Eine deutsche, typografiebetonte Website für ein redaktionelles Archiv bekannter Persönlichkeiten und grober Vermögensschätzungen. Das Projekt nutzt die bereitgestellte `top200.json` direkt und erzeugt daraus eine durchsuchbare Übersicht sowie Detailseiten für alle Profile.
 
 ## Screenshot
 
@@ -29,7 +29,7 @@ Platzhalter für Screenshots der Startseite, Detailseite und mobilen Ansicht.
 
 ## Datenhinweis
 
-Alle Vermögenswerte sind grobe öffentliche Schätzbereiche. Sie sind keine verifizierten Finanzdaten, keine Finanzabschlüsse und keine exakten Vermögensangaben. Die Rangfolge ist approximativ und dient ausschließlich der informations- und redaktionell orientierten Darstellung.
+Alle Vermögenswerte sind grobe öffentliche Schätzungen. Sie sind keine verifizierten Finanzdaten, keine Finanzabschlüsse und keine exakten Vermögensangaben. Die Rangfolge ist nur ungefähr und dient ausschließlich der redaktionellen Einordnung.
 
 ## Lokale Entwicklung
 
