@@ -67,6 +67,12 @@ const { headingId = "archive-heading" } = Astro.props;
   let activeCategory = "all";
   let visibleLimit = pageSize;
 
+  function setCardVisibility(card: Element, isVisible: boolean) {
+    card.toggleAttribute("hidden", !isVisible);
+    card.classList.toggle("is-filtered-out", !isVisible);
+    card.setAttribute("aria-hidden", String(!isVisible));
+  }
+
   function applyArchiveState(resetLimit = true) {
     if (!grid) return;
     if (resetLimit) visibleLimit = pageSize;
@@ -89,16 +95,17 @@ const { headingId = "archive-heading" } = Astro.props;
     });
 
     cards.forEach((card) => {
-      card.setAttribute("hidden", "");
+      setCardVisibility(card, false);
     });
 
     matches.forEach((card, index) => {
       grid.appendChild(card);
-      if (index < visibleLimit) card.removeAttribute("hidden");
+      setCardVisibility(card, index < visibleLimit);
     });
 
     if (resultCount) {
-      resultCount.textContent = `${matches.length} ${matches.length === 1 ? "Profil" : "Profile"}`;
+      const filterLabel = activeCategory === "all" ? "" : ` in ${activeCategory}`;
+      resultCount.textContent = `${matches.length} ${matches.length === 1 ? "Profil" : "Profile"}${filterLabel}`;
     }
 
     if (empty instanceof HTMLElement) {
