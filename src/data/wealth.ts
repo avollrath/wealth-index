@@ -97,7 +97,7 @@ function splitEditorialBio(text: string) {
   if (explicitParagraphs.length > 1) return explicitParagraphs;
 
   const sentences = text
-    .split(/(?<=[.!?])\s+/)
+    .split(/(?<=[.!?])\s+(?=[A-ZÄÖÜ])/)
     .map((sentence) => sentence.trim())
     .filter(Boolean);
 
