@@ -1,0 +1,21 @@
+---
+import ArchiveGrid from "../components/ArchiveGrid.astro";
+import Layout from "../components/Layout.astro";
+---
+
+<Layout
+  title="Top 200"
+  description="Die vollständige Top-200-Übersicht bekannter Personen in Deutschland mit grob geschätztem Vermögen."
+>
+  <section class="site-shell hero" aria-labelledby="top-heading">
+    <div>
+      <p class="eyebrow">Rangliste als Schätzung</p>
+      <h1 id="top-heading">Top <span class="accent">200</span></h1>
+      <p class="hero-copy">
+        Sortierbare Profile mit Kategorien, Kurzbiografien und klar gekennzeichneten öffentlichen Schätzbereichen.
+      </p>
+    </div>
+    <div class="aura-panel" aria-hidden="true"></div>
+  </section>
+  <ArchiveGrid headingId="top-heading" />
+</Layout>

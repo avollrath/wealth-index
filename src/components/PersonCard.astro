@@ -1,0 +1,29 @@
+---
+import type { Person } from "../data/wealth";
+import { estimateLabel, formatRank } from "../data/wealth";
+
+type Props = {
+  person: Person;
+};
+
+const { person } = Astro.props;
+const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const href = `${base}person/${person.id}/`;
+---
+
+<a
+  class="person-card"
+  href={href}
+  data-person-card
+  data-name={(person.name || "").toLowerCase()}
+  data-category={person.category || ""}
+  data-rank={person.rank ?? 9999}
+>
+  <div class="aura-panel card-aura" aria-hidden="true"></div>
+  <span class="rank-mark" aria-hidden="true">{formatRank(person.rank)}</span>
+  <p class="category-line">{person.category || "Kategorie offen"}</p>
+  <h2>{person.name}</h2>
+  <strong class="estimate-pill">Schätzung: {estimateLabel(person.estimatedNetWorthEur)}</strong>
+  <p class="bio">{person.shortBio || "Für diese Person liegt aktuell keine Kurzbeschreibung vor."}</p>
+  <span class="card-cta">Profil ansehen</span>
+</a>

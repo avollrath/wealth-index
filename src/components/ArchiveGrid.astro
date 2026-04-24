@@ -1,0 +1,129 @@
+---
+import PersonCard from "./PersonCard.astro";
+import { categories, people } from "../data/wealth";
+
+type Props = {
+  headingId?: string;
+};
+
+const { headingId = "archive-heading" } = Astro.props;
+---
+
+<section class="site-shell controls" aria-labelledby={headingId}>
+  <div class="control-row">
+    <label class="field">
+      <span class="label">Suche</span>
+      <input class="search" data-search type="search" placeholder="Name suchen…" autocomplete="off" />
+    </label>
+    <label class="field">
+      <span class="label">Sortierung</span>
+      <select class="sort" data-sort aria-label="Sortierung">
+        <option value="rank-asc">Rang aufsteigend</option>
+        <option value="rank-desc">Rang absteigend</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="chips" aria-label="Kategorien">
+    <button class="chip" type="button" data-category-filter="all" aria-pressed="true">Alle</button>
+    {
+      categories.map((category) => (
+        <button class="chip" type="button" data-category-filter={category} aria-pressed="false">
+          {category}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="archive-meta" aria-live="polite">
+    <span data-result-count>{people.length} Profile</span>
+    <span>Alle Beträge sind als Schätzung zu lesen.</span>
+  </div>
+
+  <div class="grid" data-grid>
+    {people.map((person) => <PersonCard person={person} />)}
+  </div>
+
+  <div class="empty" data-empty>
+    <p class="eyebrow">Keine Treffer</p>
+    <p>Für diese Suche gibt es aktuell kein Profil. Prüfe die Schreibweise oder wähle eine andere Kategorie.</p>
+  </div>
+
+  <div class="load-row">
+    <button class="button" type="button" data-load-more>Mehr Profile laden</button>
+  </div>
+</section>
+
+<script>
+  const pageSize = 24;
+  const search = document.querySelector("[data-search]");
+  const sort = document.querySelector("[data-sort]");
+  const grid = document.querySelector("[data-grid]");
+  const cards = Array.from(document.querySelectorAll("[data-person-card]"));
+  const chips = Array.from(document.querySelectorAll("[data-category-filter]"));
+  const resultCount = document.querySelector("[data-result-count]");
+  const empty = document.querySelector("[data-empty]");
+  const loadMore = document.querySelector("[data-load-more]");
+  let activeCategory = "all";
+  let visibleLimit = pageSize;
+
+  function applyArchiveState(resetLimit = true) {
+    if (!grid) return;
+    if (resetLimit) visibleLimit = pageSize;
+
+    const query = search instanceof HTMLInputElement ? search.value.trim().toLowerCase() : "";
+    const sortValue = sort instanceof HTMLSelectElement ? sort.value : "rank-asc";
+
+    const matches = cards.filter((card) => {
+      const name = card.getAttribute("data-name") || "";
+      const category = card.getAttribute("data-category") || "";
+      const categoryMatch = activeCategory === "all" || category === activeCategory;
+      const searchMatch = !query || name.includes(query);
+      return categoryMatch && searchMatch;
+    });
+
+    matches.sort((a, b) => {
+      const rankA = Number(a.getAttribute("data-rank") || 9999);
+      const rankB = Number(b.getAttribute("data-rank") || 9999);
+      return sortValue === "rank-desc" ? rankB - rankA : rankA - rankB;
+    });
+
+    cards.forEach((card) => {
+      card.setAttribute("hidden", "");
+    });
+
+    matches.forEach((card, index) => {
+      grid.appendChild(card);
+      if (index < visibleLimit) card.removeAttribute("hidden");
+    });
+
+    if (resultCount) {
+      resultCount.textContent = `${matches.length} ${matches.length === 1 ? "Profil" : "Profile"}`;
+    }
+
+    if (empty instanceof HTMLElement) {
+      empty.style.display = matches.length ? "none" : "block";
+    }
+
+    if (loadMore instanceof HTMLElement) {
+      loadMore.style.display = matches.length > visibleLimit ? "inline-flex" : "none";
+    }
+  }
+
+  search?.addEventListener("input", () => applyArchiveState(true));
+  sort?.addEventListener("change", () => applyArchiveState(true));
+  loadMore?.addEventListener("click", () => {
+    visibleLimit += pageSize;
+    applyArchiveState(false);
+  });
+
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      activeCategory = chip.getAttribute("data-category-filter") || "all";
+      chips.forEach((item) => item.setAttribute("aria-pressed", String(item === chip)));
+      applyArchiveState(true);
+    });
+  });
+
+  applyArchiveState(false);
+</script>
