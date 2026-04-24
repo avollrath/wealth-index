@@ -1,0 +1,73 @@
+---
+import Layout from "../../components/Layout.astro";
+import PersonCard from "../../components/PersonCard.astro";
+import { estimateLabel, formatRank, getRelatedPeople, people } from "../../data/wealth";
+
+export function getStaticPaths() {
+  return people.map((person) => ({
+    params: { id: person.id },
+    props: { person },
+  }));
+}
+
+const { person } = Astro.props;
+const related = getRelatedPeople(person);
+const base = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+---
+
+<Layout
+  title={person.name}
+  description={`${person.name}: geschätztes Vermögen, Kategorie und Kurzprofil im Promi Vermögen Archiv.`}
+>
+  <section class="site-shell">
+    <div class="detail-hero">
+      <a class="breadcrumb" href={base}>Index / {person.name}</a>
+      <h1 class="detail-title">{person.name}</h1>
+    </div>
+  </section>
+
+  <section class="site-shell detail-content" aria-label={`Profil von ${person.name}`}>
+    <aside class="facts">
+      <div class="fact">
+        <span class="label">Rang</span>
+        <strong>{formatRank(person.rank)}</strong>
+      </div>
+      <div class="fact">
+        <span class="label">Kategorie</span>
+        <strong>{person.category || "Nicht angegeben"}</strong>
+      </div>
+      <div class="fact">
+        <span class="label">Länderbezug</span>
+        <strong>{person.countryConnection || "Nicht angegeben"}</strong>
+      </div>
+      <div class="fact">
+        <span class="label">Geschätztes Vermögen</span>
+        <strong>{estimateLabel(person.estimatedNetWorthEur)}</strong>
+      </div>
+      <div class="fact">
+        <span class="label">Schätzsicherheit</span>
+        <strong>{person.estimateConfidence || "Nicht angegeben"}</strong>
+      </div>
+    </aside>
+
+    <article class="prose">
+      <p class="eyebrow">Profil</p>
+      <h2>Wirtschaftliche Reichweite als öffentlicher Schätzbereich.</h2>
+      <p>{person.shortBio || "Für diese Person liegt aktuell keine Kurzbeschreibung vor."}</p>
+      <p>
+        <strong>Quelle des Vermögens:</strong>
+        {person.wealthSource || "Keine vereinfachte Quelle angegeben."}
+      </p>
+      <p class="note">
+        {person.websiteUsageNote || "Als Schätzung anzeigen, nicht als exakte Finanzangabe."}
+      </p>
+    </article>
+  </section>
+
+  <section class="site-shell related" aria-labelledby="related-heading">
+    <h2 class="section-title" id="related-heading">Weitere Profile</h2>
+    <div class="grid">
+      {related.map((relatedPerson) => <PersonCard person={relatedPerson} />)}
+    </div>
+  </section>
+</Layout>
