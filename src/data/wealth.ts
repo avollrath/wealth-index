@@ -88,9 +88,39 @@ export function estimateLabel(value?: string) {
   return value || "Keine öffentliche Schätzung";
 }
 
+function splitEditorialBio(text: string) {
+  const explicitParagraphs = text
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+
+  if (explicitParagraphs.length > 1) return explicitParagraphs;
+
+  const sentences = text
+    .split(/(?<=[.!?])\s+/)
+    .map((sentence) => sentence.trim())
+    .filter(Boolean);
+
+  if (sentences.length < 5) return [text];
+
+  const paragraphCount = sentences.length >= 8 ? 4 : 3;
+  const perParagraph = Math.ceil(sentences.length / paragraphCount);
+  const paragraphs: string[] = [];
+
+  for (let index = 0; index < sentences.length; index += perParagraph) {
+    paragraphs.push(sentences.slice(index, index + perParagraph).join(" "));
+  }
+
+  return paragraphs;
+}
+
 export function getLongBio(person: Person) {
+  if (person.shortBio && person.shortBio.length >= 800) {
+    return splitEditorialBio(person.shortBio);
+  }
+
   if (person.longBio) {
-    return person.longBio.split(/\n{2,}/).filter(Boolean);
+    return splitEditorialBio(person.longBio);
   }
 
   const name = person.name || "Diese Person";
