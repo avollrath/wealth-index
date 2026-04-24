@@ -89,6 +89,10 @@ export function estimateLabel(value?: string) {
 }
 
 export function getLongBio(person: Person) {
+  if (person.longBio) {
+    return person.longBio.split(/\n{2,}/).filter(Boolean);
+  }
+
   const name = person.name || "Diese Person";
   const category = person.category || "Unterhaltung";
   const country = person.countryConnection || "Deutschland";
