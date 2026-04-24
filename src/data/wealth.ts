@@ -19,9 +19,40 @@ export const people = (dataset.people as Person[])
   .filter((person) => person?.id && person?.name)
   .sort((a, b) => (a.rank ?? 9999) - (b.rank ?? 9999));
 
-export const categories = Array.from(
-  new Set(people.map((person) => person.category).filter(Boolean)),
-).sort((a, b) => String(a).localeCompare(String(b), "de"));
+export const categoryGroups = [
+  "Sport",
+  "Musik",
+  "TV & Film",
+  "Social Media",
+  "Comedy",
+  "Weitere",
+] as const;
+
+export function getCategoryGroup(category?: string) {
+  const normalized = (category || "").toLowerCase();
+
+  if (normalized.includes("sport")) return "Sport";
+  if (normalized.includes("musik")) return "Musik";
+  if (
+    normalized.includes("influencer") ||
+    normalized.includes("youtube") ||
+    normalized.includes("streaming")
+  ) {
+    return "Social Media";
+  }
+  if (normalized.includes("comedy")) return "Comedy";
+  if (
+    normalized.includes("tv") ||
+    normalized.includes("film") ||
+    normalized.includes("model") ||
+    normalized.includes("mode") ||
+    normalized.includes("reality")
+  ) {
+    return "TV & Film";
+  }
+
+  return "Weitere";
+}
 
 export function formatRank(rank?: number) {
   return typeof rank === "number" ? `#${rank}` : "ohne Rang";

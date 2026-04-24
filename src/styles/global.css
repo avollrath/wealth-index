@@ -111,12 +111,27 @@ select {
 }
 
 .hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
-  gap: clamp(2rem, 7vw, 6rem);
-  min-height: clamp(34rem, 70vh, 48rem);
-  align-items: center;
+  position: relative;
+  min-height: clamp(24rem, 54vh, 36rem);
   padding-block: clamp(3rem, 8vw, 7rem);
+}
+
+.hero-simple::after {
+  position: absolute;
+  right: max(-8rem, -8vw);
+  bottom: 12%;
+  width: min(34rem, 55vw);
+  height: min(22rem, 36vw);
+  content: "";
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 127, 80, 0.42),
+    rgba(255, 107, 107, 0.18) 35%,
+    transparent 68%
+  );
+  filter: blur(46px);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .eyebrow,
@@ -153,52 +168,6 @@ select {
   color: var(--ink-soft);
   font-size: clamp(1rem, 2vw, 1.25rem);
   line-height: 1.65;
-}
-
-.aura-panel {
-  position: relative;
-  min-height: 22rem;
-  overflow: hidden;
-  background:
-    radial-gradient(
-      circle at 58% 45%,
-      rgba(255, 127, 80, 0.9),
-      transparent 0 22%,
-      transparent 42%
-    ),
-    radial-gradient(
-      circle at 72% 64%,
-      rgba(255, 107, 107, 0.68),
-      transparent 0 20%,
-      transparent 45%
-    ),
-    radial-gradient(
-      circle at 38% 28%,
-      rgba(255, 229, 206, 0.9),
-      transparent 0 16%,
-      transparent 38%
-    ),
-    linear-gradient(135deg, #efe4ff, #fff6f0 55%, #eadfff);
-  isolation: isolate;
-}
-
-.aura-panel::after {
-  position: absolute;
-  inset: -18%;
-  content: "";
-  background:
-    radial-gradient(
-      ellipse at 70% 20%,
-      rgba(255, 255, 255, 0.5),
-      transparent 30%
-    ),
-    radial-gradient(
-      ellipse at 35% 80%,
-      rgba(164, 60, 18, 0.28),
-      transparent 30%
-    );
-  filter: blur(34px);
-  mix-blend-mode: screen;
 }
 
 .controls {
@@ -276,46 +245,48 @@ select {
   font-size: 0.9rem;
 }
 
+.archive-list,
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.2rem, 2vw, 1.8rem);
+  border-top: 1px solid var(--ink);
 }
 
 .person-card {
-  position: relative;
-  display: flex;
-  min-height: 30rem;
-  flex-direction: column;
-  border-top: 1px solid var(--ink);
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr) minmax(10rem, 16rem) 5rem;
+  gap: clamp(1rem, 2.8vw, 2rem);
+  align-items: center;
+  min-height: 8.75rem;
+  border-bottom: 1px solid var(--line);
   text-decoration: none;
+  padding-block: 1.15rem;
 }
 
-.card-aura {
-  height: 10rem;
-  margin-bottom: 1rem;
+.person-card:hover,
+.person-card:focus-visible {
+  background: rgba(240, 230, 255, 0.42);
 }
 
 .rank-mark {
-  position: absolute;
-  top: 7.4rem;
-  right: 0;
-  color: rgba(26, 26, 26, 0.1);
   font-family: var(--font-display);
-  font-size: clamp(3.4rem, 7vw, 5.8rem);
+  font-size: clamp(1.7rem, 4vw, 3rem);
   font-weight: 900;
   line-height: 1;
+  color: rgba(26, 26, 26, 0.42);
+}
+
+.row-main {
+  min-width: 0;
 }
 
 .person-card h2 {
   display: -webkit-box;
-  min-height: 4.6rem;
   margin: 0;
   overflow: hidden;
   font-family: var(--font-display);
-  font-size: clamp(1.75rem, 3vw, 2.65rem);
+  font-size: clamp(1.75rem, 4vw, 3.4rem);
   font-weight: 900;
-  line-height: 0.98;
+  line-height: 0.95;
   letter-spacing: 0;
   overflow-wrap: normal;
   hyphens: none;
@@ -324,12 +295,12 @@ select {
 }
 
 .estimate-pill {
-  align-self: flex-start;
-  margin: 1rem 0;
+  justify-self: start;
   background: var(--ink);
   color: var(--surface-lavender);
   padding: 0.65rem 0.8rem;
   font-weight: 800;
+  line-height: 1.2;
 }
 
 .category-line {
@@ -341,6 +312,8 @@ select {
 
 .bio {
   display: -webkit-box;
+  max-width: 40rem;
+  margin: 0.5rem 0 0;
   overflow: hidden;
   color: var(--ink-soft);
   line-height: 1.55;
@@ -350,7 +323,6 @@ select {
 
 .card-cta,
 .button {
-  margin-top: auto;
   border: 1px solid var(--ink);
   background: transparent;
   color: var(--ink);
@@ -437,6 +409,16 @@ select {
   background: var(--line);
 }
 
+.method-kicker {
+  align-self: start;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--line);
+  padding-block: 1rem;
+  color: var(--ink-soft);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.7;
+}
+
 .fact {
   display: grid;
   gap: 0.35rem;
@@ -503,8 +485,14 @@ select {
     grid-template-columns: 1fr;
   }
 
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .person-card {
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .estimate-pill,
+  .card-cta {
+    grid-column: 2;
   }
 }
 
@@ -527,8 +515,7 @@ select {
     font-size: 0.68rem;
   }
 
-  .control-row,
-  .grid {
+  .control-row {
     grid-template-columns: 1fr;
   }
 
@@ -536,11 +523,15 @@ select {
     min-height: auto;
   }
 
-  .aura-panel {
-    min-height: 14rem;
+  .person-card {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 0.75rem;
   }
 
-  .person-card {
-    min-height: 27rem;
+  .rank-mark,
+  .estimate-pill,
+  .card-cta {
+    grid-column: 1;
   }
 }
