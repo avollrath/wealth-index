@@ -1,44 +1,38 @@
-# Promi Vermögen Archiv / Wealth Index
+# PROMI-VERMOGENS-INDEX
 
-Eine deutsche, typografiebetonte Website für ein redaktionelles Archiv bekannter Persönlichkeiten und grober Vermögensschätzungen. Das Projekt nutzt die bereitgestellte `top200.json` direkt und erzeugt daraus eine durchsuchbare Übersicht sowie Detailseiten für alle Profile.
+Eine editoriale Astro-Site fuer ein deutsches Promi-Archiv mit groben Vermoegensschaetzungen, klarer Typografie und einer bewusst bildfreien Gestaltung. Statt Portraits gibt es Aura-Flaechen, grosse Headlines und eine Liste, die sich eher wie ein Magazinindex als wie ein Dashboard anfuehlt.
 
-## Screenshot
+![PROMI-VERMOGENS-INDEX Vorschau](public/readme/promi-index-preview.jpg)
 
-Platzhalter für Screenshots der Startseite, Detailseite und mobilen Ansicht.
+> Kein Finanztool, kein Gossip-Ticker, kein "CEO-Ranking". Eher ein digitaler Katalog fuer bekannte Namen, oeffentliche Wahrnehmung und grob eingeschaetzte wirtschaftliche Groessenordnungen.
 
-## Features
+## Was die Seite kann
 
-- Durchsuchbarer Index mit allen 200 Einträgen
-- Kategorie-Filter aus den vorhandenen Daten
-- Sortierung nach Rang auf- und absteigend
-- "Mehr laden"-Interaktion für lange Listen
-- Statische Detailseite für jede Person über `person.id`
-- Verwandte Profile nach Kategorie mit Rang-Fallback
-- Methodik-Seite mit klarem Daten-Disclaimer
-- Responsive Layouts für Desktop, Tablet und Mobile
-- Keine Fotos, Portraits, generierten Gesichter oder externen Bildassets
-- Aura-Panels ausschließlich über CSS-Verläufe und dezente Körnung
+- durchsuchen, filtern und sortieren
+- fuer alle 200 Eintraege eigene Profilseiten erzeugen
+- verwandte Profile auf Basis von Kategorie und Rang zeigen
+- auf Desktop und Mobile sauber lesbar bleiben
+- komplett ohne Fotos, Stockbilder oder externe Bild-Assets auskommen
 
-## Tech Stack
+## Was hier besonders ist
 
-- Astro
-- TypeScript
-- Vanilla JavaScript für die Index-Interaktionen
-- CSS mit Custom Properties
-- Datenquelle: `top200.json`
+- Typografie zuerst: grosse Headlines, klare Raster, wenig Deko
+- Aura-Look statt Bilder: weiche Verlaeufe, Koernung und warme Akzente nur per CSS
+- Daten direkt aus `top200.json`, keine haendisch gepflegte Personenliste
+- deutsche UI-Texte, Methodik-Seite und defensive Datenbehandlung
 
-## Datenhinweis
+## Kurz zur Datenbasis
 
-Alle Vermögenswerte sind grobe öffentliche Schätzungen. Sie sind keine verifizierten Finanzdaten, keine Finanzabschlüsse und keine exakten Vermögensangaben. Die Rangfolge ist nur ungefähr und dient ausschließlich der redaktionellen Einordnung.
+Alle Vermoegenswerte auf der Seite sind grobe oeffentliche Schaetzungen. Sie sind keine verifizierten Finanzdaten, keine Kontoauszuege und keine belastbaren Abschluesse. Die Rangfolge ist deshalb immer nur eine redaktionelle Annaeherung.
 
-## Lokale Entwicklung
+## Lokal starten
 
 ```bash
 npm install
 npm run dev
 ```
 
-Die lokale Entwicklungsseite läuft standardmäßig unter `http://127.0.0.1:4321/`.
+Danach laeuft die Seite in der Regel unter `http://127.0.0.1:4321/`.
 
 ## Build
 
@@ -46,16 +40,26 @@ Die lokale Entwicklungsseite läuft standardmäßig unter `http://127.0.0.1:4321
 npm run build
 ```
 
-Der Produktionsbuild wird in `dist/` erzeugt.
+Der fertige Output landet in `dist/`.
+
+## Woraus das Projekt besteht
+
+- `Astro` fuer Routing und statische Seiten
+- `TypeScript` fuer die Datennutzung
+- `CSS` mit Custom Properties fuer Layout und Look
+- `top200.json` als zentrale Datenquelle
 
 ## Deployment
 
-Das Projekt ist als statische Astro-Site angelegt und kann auf GitHub Pages, Netlify, Vercel oder jedem statischen Hosting deployed werden. In `astro.config.mjs` ist die Site-URL für GitHub Pages vorbereitet.
+Die Seite ist statisch und laesst sich unkompliziert auf GitHub Pages, Netlify, Vercel oder anderem Static Hosting veroeffentlichen. Die Grundkonfiguration fuer GitHub Pages ist im Projekt bereits vorbereitet.
 
-## Mögliche Verbesserungen
+## Ideen fuer spaeter
 
-- Feineres Ranking- und Quellenmodell mit redaktionellen Notizen
-- Zusätzliche Filter nach Länderbezug oder Schätzsicherheit
-- Vergleichsansicht für mehrere Profile
-- Automatisierte visuelle Regressionstests für die Aura-Komponenten
-- Mehrsprachige Metadaten für internationale Varianten
+- sauberer ueberarbeitete Biografien fuer alle 200 Profile
+- feinere Filter fuer Laenderbezug und Schaetzsicherheit
+- kleine redaktionelle Specials wie "ueberraschende Nachbarschaften" oder Vergleiche
+- visuelle Snapshots fuer Regressionstests
+
+## Hinweis
+
+Wenn du das Projekt lokal oeffnest und etwas komisch wirkt, ist fast immer zuerst ein Blick auf `npm run build` oder `npm run dev` hilfreich. Die Seite ist bewusst statisch gehalten, also eher angenehm robust als ueberengineert.
