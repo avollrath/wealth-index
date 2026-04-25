@@ -1,65 +1,86 @@
 # PROMI-VERMOGENS-INDEX
 
-Eine editoriale Astro-Site fuer ein deutsches Promi-Archiv mit groben Vermoegensschaetzungen, klarer Typografie und einer bewusst bildfreien Gestaltung. Statt Portraits gibt es Aura-Flaechen, grosse Headlines und eine Liste, die sich eher wie ein Magazinindex als wie ein Dashboard anfuehlt.
+An editorial-style celebrity wealth archive built with Astro, big typography, and zero interest in looking like a finance dashboard.
 
-![PROMI-VERMOGENS-INDEX Vorschau](public/readme/promi-index-preview.jpg)
+Instead of portraits, stock photos, or fake glossy visuals, this project leans on type, spacing, and soft aura gradients. The result is meant to feel more like a digital poster archive than a spreadsheet in disguise.
 
-> Kein Finanztool, kein Gossip-Ticker, kein "CEO-Ranking". Eher ein digitaler Katalog fuer bekannte Namen, oeffentliche Wahrnehmung und grob eingeschaetzte wirtschaftliche Groessenordnungen.
+![PROMI-VERMOGENS-INDEX preview](public/readme/promi-index-preview.jpg)
 
-## Was die Seite kann
+> Not a finance app. Not a gossip machine. More like a curated index of famous names, public relevance, and rough wealth estimates with a strong visual point of view.
 
-- durchsuchen, filtern und sortieren
-- fuer alle 200 Eintraege eigene Profilseiten erzeugen
-- verwandte Profile auf Basis von Kategorie und Rang zeigen
-- auf Desktop und Mobile sauber lesbar bleiben
-- komplett ohne Fotos, Stockbilder oder externe Bild-Assets auskommen
+## What's In Here
 
-## Was hier besonders ist
+- a searchable index of 200 German celebrity and public-figure profiles
+- category filters and sorting on the main list
+- a dedicated detail page for every entry
+- related-profile suggestions based on category and rank proximity
+- a methodology page that explains what the numbers are and what they are not
+- a fully image-free design system built from CSS gradients, grain, and typography
 
-- Typografie zuerst: grosse Headlines, klare Raster, wenig Deko
-- Aura-Look statt Bilder: weiche Verlaeufe, Koernung und warme Akzente nur per CSS
-- Daten direkt aus `top200.json`, keine haendisch gepflegte Personenliste
-- deutsche UI-Texte, Methodik-Seite und defensive Datenbehandlung
+## Why It Feels Different
 
-## Kurz zur Datenbasis
+Most projects in this space drift straight into tabular, cold, overly functional UI. This one deliberately goes the other way.
 
-Alle Vermoegenswerte auf der Seite sind grobe oeffentliche Schaetzungen. Sie sind keine verifizierten Finanzdaten, keine Kontoauszuege und keine belastbaren Abschluesse. Die Rangfolge ist deshalb immer nur eine redaktionelle Annaeherung.
+The site is built like an editorial object:
 
-## Lokal starten
+- huge headlines
+- soft lavender backgrounds
+- coral glow accents
+- clean list rows instead of chunky cards
+- no portraits anywhere
+
+It is meant to feel calm, sharp, and a little bit poster-like.
+
+## The Data Bit
+
+The site uses `top200.json` as its source of truth. Routes are generated from the dataset, so the archive is data-driven from the start instead of manually assembled page by page.
+
+Important: the wealth figures are rough public estimates, not verified financial records. They are there for editorial context, not as factual accounting.
+
+## Stack
+
+- Astro
+- TypeScript
+- plain CSS with custom properties
+- JSON data
+
+Nice and lean. No giant UI kit. No image dependency maze. No weird dashboard baggage.
+
+## Run It Locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-Danach laeuft die Seite in der Regel unter `http://127.0.0.1:4321/`.
+That usually starts the site at `http://127.0.0.1:4321/`.
 
-## Build
+## Build It
 
 ```bash
 npm run build
 ```
 
-Der fertige Output landet in `dist/`.
+The production build lands in `dist/`.
 
-## Woraus das Projekt besteht
+## Deploy Notes
 
-- `Astro` fuer Routing und statische Seiten
-- `TypeScript` fuer die Datennutzung
-- `CSS` mit Custom Properties fuer Layout und Look
-- `top200.json` als zentrale Datenquelle
+This is a static site, so it is easy to ship on GitHub Pages, Netlify, Vercel, or basically any other static host that behaves itself.
 
-## Deployment
+## A Few Honest Notes
 
-Die Seite ist statisch und laesst sich unkompliziert auf GitHub Pages, Netlify, Vercel oder anderem Static Hosting veroeffentlichen. Die Grundkonfiguration fuer GitHub Pages ist im Projekt bereits vorbereitet.
+- the numbers are estimates
+- the ranking is approximate
+- categories are simplified on purpose
+- country connections are editorial shorthand, not a legal classification
 
-## Ideen fuer spaeter
+## Ideas For Later
 
-- sauberer ueberarbeitete Biografien fuer alle 200 Profile
-- feinere Filter fuer Laenderbezug und Schaetzsicherheit
-- kleine redaktionelle Specials wie "ueberraschende Nachbarschaften" oder Vergleiche
-- visuelle Snapshots fuer Regressionstests
+- tighter editorial polish across every biography
+- richer filters for country connection and confidence level
+- themed collections or spotlight pages
+- visual regression snapshots for layout QA
 
-## Hinweis
+## TL;DR
 
-Wenn du das Projekt lokal oeffnest und etwas komisch wirkt, ist fast immer zuerst ein Blick auf `npm run build` oder `npm run dev` hilfreich. Die Seite ist bewusst statisch gehalten, also eher angenehm robust als ueberengineert.
+This is a celebrity wealth archive that tries to feel designed, not dumped. Big type, no portraits, clean structure, and just enough glow to keep it from turning into another boring index.
